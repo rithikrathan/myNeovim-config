@@ -34,9 +34,8 @@ print(rathan)
 
 --colorscheme configuration
 
-local colorScheme = require("rose-pine")
-
-require('darkvoid').setup({
+local colorScheme = require("darkvoid")
+colorScheme.setup({
     transparent = true,
     glow = true,
     show_end_of_buffer = true,
@@ -105,9 +104,6 @@ require('darkvoid').setup({
 })
 
 vim.cmd("colorscheme darkvoid")
--- vim.cmd("colorscheme rose-pine-main")
--- vim.cmd("colorscheme rose-pine-moon")
--- vim.cmd("colorscheme rose-pine-dawn")
 --vim.api.nvim_set_hl(0,"Normal", {bg = "none"})
 --vim.api.nvim_set_hl(0,"NormalFloat", {bg = "none"})
 
@@ -120,11 +116,6 @@ treesitter.setup ({
   auto_install = true,
   highlight = {
     enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
 })
