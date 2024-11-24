@@ -72,6 +72,7 @@ colorScheme.setup({
 vim.cmd("colorscheme darkvoid")
 
 
+
 --Lualine configurations
 
 require('lualine').setup{
@@ -184,6 +185,7 @@ masonConf.setup({
 
 --nvim-cmp configurations
 
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
 cmp.setup({
 	sources = {
@@ -210,11 +212,14 @@ cmp.setup({
 		end,
 	},
 })
-
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 --Minimap configurations
 
---vim.cmd("highlight minimapCursor ctermbg=59  ctermfg=228 guibg=#5F5F5F guifg=#ff5555")
+-- vim.cmd("highlight minimapCursor ctermbg=59  ctermfg=228 guibg=#5F5F5F guifg=#ff5555")
 vim.cmd("highlight minimapCursor ctermbg=238  ctermfg=228 guibg= #121212 guifg = #d70000")
 vim.cmd("highlight minimapRange ctermbg=242 ctermfg=228 guibg= #262626 guifg = #ff5555")
 vim.cmd("highlight minimapDiffRemoved ctermfg=197 guifg=#c70a52")
@@ -226,3 +231,46 @@ vim.cmd("highlight minimapCursorDiffLine ctermbg=59 ctermfg=141 guibg=#5F5F5F gu
 vim.cmd("highlight minimapRangeDiffRemoved ctermbg=242 ctermfg=197 guibg=#4F4F4F guifg=#FC1A70")
 vim.cmd("highlight minimapRangeDiffAdded ctermbg=242 ctermfg=148 guibg=#4F4F4F guifg=#A4E400")
 vim.cmd("highlight minimapRangeDiffLine ctermbg=242 ctermfg=141 guibg=#4F4F4F guifg=#AF87FF")
+
+
+--LuaSnip and snippet loader configurations
+
+require("luasnip.loaders.from_vscode").lazy_load()
+local ls = require("luasnip")
+
+vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+
+vim.keymap.set({"i", "s"}, "<C-E>", function()
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, {silent = true})
+
+
+--Conform-nvim configurations
+local conform = require("conform")
+conform.setup({
+	formatters_by_ft = {
+		lua = { "stylua" },
+		-- Conform will run multiple formatters sequentially
+		python = { "isort", "black" },
+		-- You can customize some of the format options for the filetype (:help conform.format)
+		rust = { "rustfmt", lsp_format = "fallback" },
+		-- Conform will run the first available formatter
+		javascript = { "prettierd", "prettier", stop_after_first = true },
+	},
+	format_on_save = {
+		-- These options will be passed to conform.format()
+		timeout_ms = 500,
+		lsp_format = "fallback",
+	},
+	vim.keymap.set("n", "<leader>f", function ()
+		conform.format({
+			lsp_fallback = true,
+			async = false,
+			timeout_ms = 500,
+		})
+	end, {desc = "Format on keypress"})
+})
