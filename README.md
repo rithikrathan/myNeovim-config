@@ -1,1 +1,1 @@
-still configuring it and also this repo is not meant for people to use my theme 
+This repo is not meant for sharing my config to people.

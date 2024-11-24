@@ -3,9 +3,11 @@ vim.opt.timeoutlen = 300
 
 --Plugin specific keymaps
 vim.keymap.set("n","<leader>gs", vim.cmd.Git)--open a Git window
+vim.keymap.set("n","<leader>gg", vim.cmd.GitGutterToggle)--open a Git window
 vim.keymap.set("n", "<leader>1", vim.cmd.Mason)--open Mason window
 vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)--open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
+vim.keymap.set("n", "<leader>t", '<cmd>sp | term<CR>')
 
 --godlike keymaps
 vim.keymap.set("n","<leader>pv", vim.cmd.Ex)
