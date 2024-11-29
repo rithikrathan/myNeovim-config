@@ -1,0 +1,63 @@
+Keybind,Mode,Description
+<leader>gs,Normal,Open a Git window
+<leader>gg,Normal,Toggle GitGutter
+<leader>tb,Normal,Toggle Tagbar
+<leader>gt,Normal,Toggle git line highlights
+<leader>1,Normal,Open Mason window
+<leader>2,Normal,Open Lazy window
+<leader>m,Normal,Toggle Minimap
+<leader>t,Normal,Open a terminal in a split
+<leader>pv,Normal,Open file explorer
+<leader><Tab>,Insert/Visual/Terminal,Exit insert/visual/terminal mode
+<leader>d,Normal,Duplicate current line
+<leader>;,Insert,Enter temporary normal mode
+J,Visual,Move selected lines down
+K,Visual,Move selected lines up
+<C-d>,Normal,Scroll down and center
+<C-u>,Normal,Scroll up and center
+n,Normal,Search forward and center
+N,Normal,Search backward and center
+H,Normal,Move to the first non-blank character
+L,Normal,Move to the last non-blank character
+vq,Normal,Select inside double quotes
+vQ,Normal,Select around double quotes
+vp,Normal,Select inside parentheses
+vp,Normal,Select around parentheses
+<leader>vp,Normal,Select an entire paragraph
+ci,Normal,Change text inside double quotes
+cp,Normal,Change text inside parentheses
+<leader>dd,Visual,Duplicate visual selection
+<leader>h,Normal,Split horizontal window
+<leader>v,Normal,Split vertical window
+<C-h>,Normal,Move focus to the left window
+<C-l>,Normal,Move focus to the right window
+<C-j>,Normal,Move focus to the lower window
+<C-k>,Normal,Move focus to the upper window
+<C-Up>,Normal,Resize split window vertically (increase)
+<C-Down>,Normal,Resize split window vertically (decrease)
+<C-Left>,Normal,Resize split window horizontally (decrease)
+<C-Right>,Normal,Resize split window horizontally (increase)
+<leader>ff,Normal,Telescope find files
+<C-p>,Normal,Telescope git file search
+<leader>fg,Normal,Telescope live grep
+<leader>fb,Normal,Telescope buffers
+<leader>fh,Normal,Telescope help tags
+<leader>fs,Normal,Telescope grep with input
+<leader>a,Normal,Add a Harpoon mark
+<leader>s,Normal,Remove a Harpoon mark
+<C-h>,Normal,Select Harpoon mark 1
+<C-t>,Normal,Select Harpoon mark 2
+<C-n>,Normal,Select Harpoon mark 3
+<C-s>,Normal,Select Harpoon mark 4
+<C-S-P>,Normal,Toggle to previous Harpoon mark
+<C-S-N>,Normal,Toggle to next Harpoon mark
+K,Normal,LSP hover
+gd,Normal,LSP go to definition
+gD,Normal,LSP go to declaration
+gi,Normal,LSP go to implementation
+go,Normal,LSP go to type definition
+gr,Normal,LSP list references
+gs,Normal,LSP signature help
+<F2>,Normal,LSP rename
+<F3>,Normal/Visual,LSP format asynchronously
+<F4>,Normal,LSP code action

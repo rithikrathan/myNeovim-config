@@ -71,16 +71,14 @@ colorScheme.setup({
 
 vim.cmd("colorscheme darkvoid")
 
-
-
 --Lualine configurations
 
-require('lualine').setup{
+require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = 'Ra-lualine',
-		component_separators = { left = '', right = ''},
-		section_separators = { left = '', right = ''},
+		theme = "Ra-lualine",
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
 			statusline = {},
 			winbar = {},
@@ -93,35 +91,34 @@ require('lualine').setup{
 			statusline = 100,
 			tabline = 100,
 			winbar = 100,
-		}
+		},
 	},
 	sections = {
-		lualine_a = {'mode'},
-		lualine_b = {'branch', 'diff', 'diagnostics'},
-		lualine_c = {'filename'},
-		lualine_x = {'encoding', 'fileformat', 'filetype'},
-		lualine_y = {'progress'},
-		lualine_z = {'location'}
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_c = { "filename" },
+		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
 	},
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},
-		lualine_c = {'filename'},
-		lualine_x = {'location'},
+		lualine_c = { "filename" },
+		lualine_x = { "location" },
 		lualine_y = {},
-		lualine_z = {}
+		lualine_z = {},
 	},
 	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
-	extensions = {}
-}
-
+	extensions = {},
+})
 
 --Treesitter configurations
 
-local treesitter = require('nvim-treesitter.configs')
-treesitter.setup ({
+local treesitter = require("nvim-treesitter.configs")
+treesitter.setup({
 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
 	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "cpp", "java" },
 	sync_install = false,
@@ -132,10 +129,9 @@ treesitter.setup ({
 	},
 })
 
-
 --Harpoon with telescope configurations
 
-local harpoon = require('harpoon')
+local harpoon = require("harpoon")
 harpoon:setup({})
 
 local conf = require("telescope.config").values
@@ -145,66 +141,64 @@ local function toggle_telescope(harpoon_files)
 		table.insert(file_paths, item.value)
 	end
 
-	require("telescope.pickers").new({}, {
-		prompt_title = "Harpoon",
-		finder = require("telescope.finders").new_table({
-			results = file_paths,
-		}),
-		previewer = conf.file_previewer({}),
-		sorter = conf.generic_sorter({}),
-	}):find()
+	require("telescope.pickers")
+		.new({}, {
+			prompt_title = "Harpoon",
+			finder = require("telescope.finders").new_table({
+				results = file_paths,
+			}),
+			previewer = conf.file_previewer({}),
+			sorter = conf.generic_sorter({}),
+		})
+		:find()
 end
 
-vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,{ desc = "Open harpoon window" })
-
+vim.keymap.set("n", "<C-e>", function()
+	toggle_telescope(harpoon:list())
+end, { desc = "Open harpoon window" })
 
 --UndoTree configuration
 
-vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 --Lsp configurations
 
-local mason = require('mason')
-local masonConf = require('mason-lspconfig')
-local lspconfig_defaults = require('lspconfig').util.default_config
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-'force',
-lspconfig_defaults.capabilities,
-require('cmp_nvim_lsp').default_capabilities()
-)
+local mason = require("mason")
+local masonConf = require("mason-lspconfig")
+local lspconfig_defaults = require("lspconfig").util.default_config
+lspconfig_defaults.capabilities =
+	vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 mason.setup({})
 masonConf.setup({
 	handlers = {
 		function(server_name)
-			require('lspconfig')[server_name].setup({})
+			require("lspconfig")[server_name].setup({})
 		end,
 	},
 })
 
-
 --nvim-cmp configurations
 
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp = require("cmp")
 cmp.setup({
 	sources = {
-		{name = 'nvim_lsp'},
+		{ name = "nvim_lsp" },
 	},
 	mapping = cmp.mapping.preset.insert({
 		-- Navigate between completion items
-		['<C-p>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
-		['<C-n>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+		["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
 
 		-- `Enter` key to confirm completion
-		['<CR>'] = cmp.mapping.confirm({select = false}),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 
 		-- Ctrl+Space to trigger completion menu
-		['<C-Space>'] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.complete(),
 
 		-- Scroll up and down in the completion documentation
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
 	}),
 	snippet = {
 		expand = function(args)
@@ -212,10 +206,7 @@ cmp.setup({
 		end,
 	},
 })
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 --Minimap configurations
 
@@ -232,22 +223,26 @@ vim.cmd("highlight minimapRangeDiffRemoved ctermbg=242 ctermfg=197 guibg=#4F4F4F
 vim.cmd("highlight minimapRangeDiffAdded ctermbg=242 ctermfg=148 guibg=#4F4F4F guifg=#A4E400")
 vim.cmd("highlight minimapRangeDiffLine ctermbg=242 ctermfg=141 guibg=#4F4F4F guifg=#AF87FF")
 
-
 --LuaSnip and snippet loader configurations
 
 require("luasnip.loaders.from_vscode").lazy_load()
 local ls = require("luasnip")
 
-vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+vim.keymap.set({ "i" }, "<C-K>", function()
+	ls.expand()
+end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-L>", function()
+	ls.jump(1)
+end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-J>", function()
+	ls.jump(-1)
+end, { silent = true })
 
-vim.keymap.set({"i", "s"}, "<C-E>", function()
+vim.keymap.set({ "i", "s" }, "<C-E>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
-end, {silent = true})
-
+end, { silent = true })
 
 --Conform-nvim configurations
 local conform = require("conform")
@@ -266,11 +261,11 @@ conform.setup({
 		timeout_ms = 500,
 		lsp_format = "fallback",
 	},
-	vim.keymap.set("n", "<leader>f", function ()
+	vim.keymap.set("n", "<leader>f", function()
 		conform.format({
 			lsp_fallback = true,
 			async = false,
 			timeout_ms = 500,
 		})
-	end, {desc = "Format on keypress"})
+	end, { desc = "Format on keypress" }),
 })
