@@ -120,7 +120,19 @@ require("lualine").setup({
 local treesitter = require("nvim-treesitter.configs")
 treesitter.setup({
 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "cpp", "java" },
+	ensure_installed = {
+		"c",
+		"lua",
+		"vim",
+		"vimdoc",
+		"query",
+		"markdown",
+		"markdown_inline",
+		"python",
+		"cpp",
+		"java",
+		"gdscript",
+	},
 	sync_install = false,
 	auto_install = true,
 	highlight = {
@@ -153,7 +165,7 @@ local function toggle_telescope(harpoon_files)
 		:find()
 end
 
-vim.keymap.set("n", "<C-e>", function()
+vim.keymap.set("n", "<leader>e", function()
 	toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })
 
@@ -166,6 +178,8 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 local mason = require("mason")
 local masonConf = require("mason-lspconfig")
 local lspconfig_defaults = require("lspconfig").util.default_config
+local lspconfig = require("lspconfig")
+
 lspconfig_defaults.capabilities =
 	vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 mason.setup({})
@@ -174,6 +188,32 @@ masonConf.setup({
 		function(server_name)
 			require("lspconfig")[server_name].setup({})
 		end,
+	},
+})
+
+lspconfig.gdscript.setup({ lspconfig_defaults.capabilities })
+
+lspconfig.arduino_language_server.setup({
+	cmd = {
+		"arduino-language-server",
+		"-clangd",
+		"clangd",
+		"/home/rathanthegreatlol/.local/share/nvim/mason/bin/clangd",
+		"-cli",
+		"/home/rathanthegreatlol/bin/",
+		"-cli-config",
+		"~/.arduino15/arduino-cli.yaml",
+		"-fqbn",
+		"arduino:avr:uno",
+	},
+})
+
+lspconfig.clangd.setup({
+	cmd = { "clangd", "--compile-commands-dir=" .. vim.loop.cwd() },
+	filetypes = { "c", "cpp", "objc", "objcpp", "arduino" },
+	init_options = {
+		usePlaceholders = true,
+		completeUnimported = true,
 	},
 })
 
@@ -187,12 +227,10 @@ cmp.setup({
 	},
 	mapping = cmp.mapping.preset.insert({
 		-- Navigate between completion items
-		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-		["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
-
+		["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+		["<A-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
 		-- `Enter` key to confirm completion
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
-
+		["<A-i>"] = cmp.mapping.confirm({ select = false }),
 		-- Ctrl+Space to trigger completion menu
 		["<C-Space>"] = cmp.mapping.complete(),
 

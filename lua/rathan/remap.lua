@@ -12,6 +12,16 @@ vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
 
 --godlike keymaps
+vim.keymap.set("n", "<leader>nf", function()
+	local filename = vim.fn.input("New file: ")
+	if filename ~= "" then
+		vim.fn.system("touch " .. filename)
+		print("Created: " .. filename)
+	else
+		print("Canceled file creation.")
+	end
+end, { desc = "Create file in netrw" })
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("i", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
 vim.keymap.set("v", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit visual mode" })
@@ -34,8 +44,10 @@ vim.keymap.set("n", "<leader>vp", "vip") -- Quickly select an entire paragraph
 vim.keymap.set("n", "ci", 'ci"') -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(") -- Inside parentheses
 vim.keymap.set("v", "<leader>dd", "y'>p") -- Duplicate visual selection
+vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")
+vim.keymap.set("v", "<leader>wq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>')
 
---Split windows, navigations keymaps CTRL+<hjkl>
+--Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Split vertical windowx" })
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
