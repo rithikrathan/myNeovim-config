@@ -12,15 +12,21 @@ vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
 
 --godlike keymaps
+
 vim.keymap.set("n", "<leader>nf", function()
+	-- Get the current directory in netrw
+	local netrw_dir = vim.fn.expand("%:p:h")
+	-- Ask for the new file name
 	local filename = vim.fn.input("New file: ")
+	-- If the user entered a name, create the file in the netrw directory
 	if filename ~= "" then
-		vim.fn.system("touch " .. filename)
-		print("Created: " .. filename)
+		local filepath = netrw_dir .. "/" .. filename
+		vim.fn.system("touch " .. vim.fn.shellescape(filepath))
+		print("Created: " .. filepath)
 	else
 		print("Canceled file creation.")
 	end
-end, { desc = "Create file in netrw" })
+end, { desc = "Create file in current netrw directory" })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("i", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
