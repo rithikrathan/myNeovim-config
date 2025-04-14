@@ -1,5 +1,4 @@
---colorscheme configuration
-
+--colorscheme configurations
 local colorScheme = require("darkvoid")
 colorScheme.setup({
 	transparent = true,
@@ -216,13 +215,46 @@ lspconfig.clangd.setup({
 	},
 })
 
---nvim-cmp configurations
+-- Lsp-Signature configurations
+require("lsp_signature").setup({
+	floating_window = true,
+	hint_enable = false, -- disable inline hint if it's annoying
+	handler_opts = {
+		border = "rounded",
+	},
+	floating_window_above_cur_line = true, -- move it up
+})
 
+--nvim-cmp configurations
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
+local lspkind = require('lspkind')
 cmp.setup({
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = 'text_symbol', -- show only symbol annotations
+			maxwidth = {
+				-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				-- can also be a function to dynamically calculate max width such as
+				-- menu = function() return math.floor(0.45 * vim.o.columns) end,
+				menu = 50,   -- leading text (labelDetails)
+				abbr = 50,   -- actual suggestion item
+			},
+			ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+			show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+			before = function(entry, vim_item)
+				-- ...
+				return vim_item
+			end
+		})
+	},
+
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "path" },
+		{ name = "buffer" },
 	},
 	mapping = cmp.mapping.preset.insert({
 		-- Navigate between completion items
@@ -232,7 +264,6 @@ cmp.setup({
 		["<A-i>"] = cmp.mapping.confirm({ select = false }),
 		-- Ctrl+Space to trigger completion menu
 		["<C-Space>"] = cmp.mapping.complete(),
-
 		-- Scroll up and down in the completion documentation
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -246,8 +277,7 @@ cmp.setup({
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 --Minimap configurations
-
--- vim.cmd("highlight minimapCursor ctermbg=59  ctermfg=228 guibg=#5F5F5F guifg=#ff5555")
+vim.cmd("highlight minimapCursor ctermbg=59  ctermfg=228 guibg=#5F5F5F guifg=#ff5555")
 vim.cmd("highlight minimapCursor ctermbg=238  ctermfg=228 guibg= #121212 guifg = #d70000")
 vim.cmd("highlight minimapRange ctermbg=242 ctermfg=228 guibg= #262626 guifg = #ff5555")
 vim.cmd("highlight minimapDiffRemoved ctermfg=197 guifg=#c70a52")
@@ -298,7 +328,7 @@ conform.setup({
 		timeout_ms = 500,
 		lsp_format = "fallback",
 	},
-	vim.keymap.set("n", "<leader>f", function()
+	vim.keymap.set("n", "<leader>fo", function()
 		conform.format({
 			lsp_fallback = true,
 			async = false,

@@ -2,12 +2,12 @@ vim.opt.mouse = "a"
 vim.opt.timeoutlen = 300
 
 --Plugin specific keymaps
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git) --open a Git window
-vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle) --Toggle gitgutter
-vim.keymap.set("n", "<leader>tb", vim.cmd.TagbarToggle) --Toggle Tagbar
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
+vim.keymap.set("n", "<leader>gg", vim.cmd.GitGutterToggle)                                                    --Toggle gitgutter
+vim.keymap.set("n", "<leader>tb", vim.cmd.TagbarToggle)                                                       --Toggle Tagbar
 vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutterLineNrHighlightsToggle<CR>") --toggle git line highlights
-vim.keymap.set("n", "<leader>1", vim.cmd.Mason) --open Mason window
-vim.keymap.set("n", "<leader>2", vim.cmd.Lazy) --open Lazy window
+vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                                               --open Mason window
+vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
 
@@ -40,18 +40,27 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "H", "^") -- Move to the first non-blank character
-vim.keymap.set("n", "L", "g_") -- Move to the last non-blank character
-vim.keymap.set("n", "vq", 'vi"') -- Inside double quotes
-vim.keymap.set("n", "vQ", 'va"') -- Around double quotes
-vim.keymap.set("n", "vp", "vi(") -- Inside parentheses
-vim.keymap.set("n", "vP", "va(") -- Around parentheses
-vim.keymap.set("n", "<leader>vp", "vip") -- Quickly select an entire paragraph
-vim.keymap.set("n", "ci", 'ci"') -- Inside double quotes
-vim.keymap.set("n", "cp", "ci(") -- Inside parentheses
-vim.keymap.set("v", "<leader>dd", "y'>p") -- Duplicate visual selection
-vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")
-vim.keymap.set("v", "<leader>wq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>')
+vim.keymap.set("n", "H", "^")                                       -- Move to the first non-blank character
+vim.keymap.set("n", "L", "g_")                                      -- Move to the last non-blank character
+vim.keymap.set("n", "vq", 'vi"')                                    -- Inside double quotes
+vim.keymap.set("n", "vQ", 'va"')                                    -- Around double quotes
+vim.keymap.set("n", "vp", "vi(")                                    -- Inside parentheses
+vim.keymap.set("n", "vP", "va(")                                    -- Around parentheses
+vim.keymap.set("n", "<leader>vp", "vip")                            -- Quickly select an entire paragraph
+vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
+vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
+vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
+vim.keymap.set("v", "<leader>dd", "y'>p")                           -- Duplicate visual selection
+vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the selected text around parentheses
+vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
+vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
+vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
+vim.keymap.set("i", "<leader>fj", "<")                              --type < in insert mode
+vim.keymap.set("i", "<leader>fk", ">")                              --type > in insert mode
+vim.keymap.set("i", "<leader>fjj", '""<left>')                      --type "" and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fkk", "''<left>")                      --type '' and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fl", "()<left>")                       --type () and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fll", "{}<left>")                      --type {} and place your cursor between it in insert mode
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
@@ -87,16 +96,16 @@ end)
 vim.keymap.set("n", "<leader>s", function()
 	harpoon:list():remove()
 end)
-vim.keymap.set("n", "<C-h>", function()
+vim.keymap.set("n", "33", function()
 	harpoon:list():select(1)
 end)
-vim.keymap.set("n", "<C-t>", function()
+vim.keymap.set("n", "44", function()
 	harpoon:list():select(2)
 end)
-vim.keymap.set("n", "<C-n>", function()
+vim.keymap.set("n", "55", function()
 	harpoon:list():select(3)
 end)
-vim.keymap.set("n", "<C-s>", function()
+vim.keymap.set("n", "66", function()
 	harpoon:list():select(4)
 end)
 --Toggle previous & next buffers stored within Harpoon list

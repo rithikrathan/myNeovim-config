@@ -1,31 +1,30 @@
 --  YES I dont understand it either but i figured it out by myself anyway
-
-require("rathan.lazy") --Lazy config files
+require("rathan.lazy")         --Lazy config files
 require("rathan.pluginConfig") --All plugin specific configurations
-require("rathan.remap") --Custom key remaps
+require("rathan.remap")        --Custom key remaps
 
 -- Behold! the unecessary ASCII art
 
-local rathan = [[      
-     ##### /##                         /                                    
-  ######  / ##                       #/                                     
- /#   /  /  ##                 #     ##                                     
-/    /  /   ##                ##     ##                                     
-    /  /    /                 ##     ##                                     
-   ## ##   /       /###     ######## ##  /##      /###   ###  /###          
-   ## ##  /       / ###    ########  ## / ###    / ###    ###/ ####       
-   ## ###/       /   ###      ##     ##/   ###  /   ###    ##   ###      
-   ## ##  ###   ##    ##      ##     ##     ## ##    ##    ##    ##         
-   ## ##    ##  ##    ##      ##     ##     ## ##    ##    ##    ##         
-   #  ##    ##  ##    ##      ##     ##     ## ##    ##    ##    ##         
-      /     ##  ##    ##      ##     ##     ## ##    ##    ##    ##         
-  /##/      ### ##    /#      ##     ##     ## ##    /#    ##    ##  
- /  ####    ##   ####/ ##     ##     ##     ##  ####/ ##   ###   ###  
-/    ##     #     ###   ##     ##     ##    ##   ###   ##   ###   ### 
-#                                           /                         
- ##                                        /                          
-                                          /           
-           
+local rathan = [[
+     ##### /##                         /
+  ######  / ##                       #/
+ /#   /  /  ##                 #     ##
+/    /  /   ##                ##     ##
+    /  /    /                 ##     ##
+   ## ##   /       /###     ######## ##  /##      /###   ###  /###
+   ## ##  /       / ###    ########  ## / ###    / ###    ###/ ####
+   ## ###/       /   ###      ##     ##/   ###  /   ###    ##   ###
+   ## ##  ###   ##    ##      ##     ##     ## ##    ##    ##    ##
+   ## ##    ##  ##    ##      ##     ##     ## ##    ##    ##    ##
+   #  ##    ##  ##    ##      ##     ##     ## ##    ##    ##    ##
+      /     ##  ##    ##      ##     ##     ## ##    ##    ##    ##
+  /##/      ### ##    /#      ##     ##     ## ##    /#    ##    ##
+ /  ####    ##   ####/ ##     ##     ##     ##  ####/ ##   ###   ###
+/    ##     #     ###   ##     ##     ##    ##   ###   ##   ###   ###
+#                                           /
+ ##                                        /
+                                          /
+
 
 ]]
 
@@ -65,3 +64,10 @@ vim.fn.sign_define("DiagnosticSignError", { text = "🤦", texthl = "DiagnosticS
 vim.fn.sign_define("DiagnosticSignWarn", { text = "✯", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "⚑", texthl = "DiagnosticSignHint" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "⧐", texthl = "DiagnosticSignInfo" })
+
+--dealing with transparency?
+vim.cmd([[
+highlight! link LspSignatureActiveParameter IncSearch
+highlight! FloatBorder guibg=NONE guifg=#888888
+highlight! NormalFloat guibg=NONE
+]])
