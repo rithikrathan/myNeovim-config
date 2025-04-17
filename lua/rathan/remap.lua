@@ -56,8 +56,8 @@ vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the s
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
 vim.keymap.set("i", "<leader>fj", "<")                              --type < in insert mode
-vim.keymap.set("i", "<leader>fk", ">")                              --type > in insert mode
 vim.keymap.set("i", "<leader>fjj", '""<left>')                      --type "" and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fk", ">")                              --type '' and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fkk", "''<left>")                      --type '' and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fl", "()<left>")                       --type () and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fll", "{}<left>")                      --type {} and place your cursor between it in insert mode

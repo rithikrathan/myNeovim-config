@@ -65,9 +65,9 @@ vim.fn.sign_define("DiagnosticSignWarn", { text = "✯", texthl = "DiagnosticSig
 vim.fn.sign_define("DiagnosticSignHint", { text = "⚑", texthl = "DiagnosticSignHint" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "⧐", texthl = "DiagnosticSignInfo" })
 
---dealing with transparency?
+-- dealing with transparency?
 vim.cmd([[
-highlight! link LspSignatureActiveParameter IncSearch
-highlight! FloatBorder guibg=NONE guifg=#888888
-highlight! NormalFloat guibg=NONE
-]])
+ highlight! link LspSignatureActiveParameter IncSearch
+ highlight! FloatBorder guibg=NONE guifg=#888888
+ highlight! NormalFloat guibg=NONE
+ ]])
