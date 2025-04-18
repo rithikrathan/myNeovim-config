@@ -1,5 +1,5 @@
 vim.opt.mouse = "a"
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 200
 
 --Plugin specific keymaps
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
@@ -10,9 +10,9 @@ vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                 
 vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
+vim.keymap.set("n", "<leader>``", ":tabnew ~/.config/nvim<CR>")
 
 --godlike keymaps
-
 vim.keymap.set("n", "<leader>nf", function()
 	-- Get the current directory in netrw
 	local netrw_dir = vim.fn.expand("%:p:h")
@@ -50,17 +50,19 @@ vim.keymap.set("n", "<leader>vp", "vip")                            -- Quickly s
 vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
 vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
+vim.keymap.set({ "n", "v" }, "<leader>fp", '"*p')                   --paste clipboard
 vim.keymap.set("v", "<leader>dd", "y'>p")                           -- Duplicate visual selection
 vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the selected text around parentheses
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
 vim.keymap.set("i", "<leader>fj", "<")                              --type < in insert mode
-vim.keymap.set("i", "<leader>fjj", '""<left>')                      --type "" and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fk", ">")                              --type '' and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fkk", "''<left>")                      --type '' and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fl", "()<left>")                       --type () and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fll", "{}<left>")                      --type {} and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fjj", ">")                             --type < in insert mode
+vim.keymap.set("i", "<leader>fjk", "<><left>")                      --type <> and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fq", "''<left>")                       --type '' and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fqq", '""<left>')                      --type "" and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>f;", "()<left>")                       --type () and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>f;;", "{}<left>")                      --type {} and place your cursor between it in insert mode
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
@@ -79,7 +81,7 @@ vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
 --Telescope keymaps
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Telescope git file search" })
+vim.keymap.set("n", "<leader>fgi", builtin.git_files, { desc = "Telescope git file search" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })

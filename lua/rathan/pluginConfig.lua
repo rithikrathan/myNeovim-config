@@ -227,8 +227,9 @@ require("lsp_signature").setup({
 
 --nvim-cmp configurations
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-local cmp = require("cmp")
+local luasnip = require("luasnip")
 local lspkind = require('lspkind')
+local cmp = require("cmp")
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
@@ -255,7 +256,9 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "path" },
 		{ name = "buffer" },
+		{ name = "luasnip" },
 	},
+
 	mapping = cmp.mapping.preset.insert({
 		-- Navigate between completion items
 		["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
@@ -270,6 +273,7 @@ cmp.setup({
 	}),
 	snippet = {
 		expand = function(args)
+			luasnip.lsp_expand(args.body)
 			vim.snippet.expand(args.body)
 		end,
 	},
@@ -291,11 +295,12 @@ vim.cmd("highlight minimapRangeDiffAdded ctermbg=242 ctermfg=148 guibg=#4F4F4F g
 vim.cmd("highlight minimapRangeDiffLine ctermbg=242 ctermfg=141 guibg=#4F4F4F guifg=#AF87FF")
 
 --LuaSnip and snippet loader configurations
-
-require("luasnip.loaders.from_vscode").lazy_load()
 local ls = require("luasnip")
 
-vim.keymap.set({ "i" }, "<C-K>", function()
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/additional files/snippets/" })
+
+vim.keymap.set({ "i" }, "<leader>fk", function()
 	ls.expand()
 end, { silent = true })
 vim.keymap.set({ "i", "s" }, "<C-L>", function()
