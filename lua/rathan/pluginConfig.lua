@@ -7,7 +7,7 @@ colorScheme.setup({
 	colors = {
 		fg = "#c0c0c0",
 		bg = "#050505",
-		cursor = "#040404",
+		cursor = "#ffffff",
 		line_nr = "#ff1e00",
 		visual = "#690202",
 		comment = "#585858",
@@ -354,3 +354,6 @@ require('nvim-ts-autotag').setup({
 	-- 	}
 	-- }
 })
+
+-- idl liveserver??
+require('live-server').setup(opts)
