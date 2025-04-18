@@ -61,9 +61,9 @@ colorScheme.setup({
 
 		-- LSP diagnostics colors
 		error = "#ff0000",
-		warning = "#ff6a00",
-		hint = "#e600ff",
-		info = "#00ff6a",
+		warning = "#ffee00",
+		hint = "#00ffee",
+		info = "#14ff6a",
 	},
 })
 

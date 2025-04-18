@@ -12,6 +12,10 @@ vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
 vim.keymap.set("n", "<leader>``", ":tabnew ~/.config/nvim<CR>")
 
+-- testing new keymaps
+
+--
+
 --godlike keymaps
 vim.keymap.set("n", "<leader>nf", function()
 	-- Get the current directory in netrw
@@ -55,14 +59,17 @@ vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the s
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
+vim.keymap.set("i", "<leader>fj", "<")                              --type <> and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fjj", ">")                             --type <> and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fjk", "<><left>")                      --type <> and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fq", "''<left>")                       --type '' and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fqq", '""<left>')                      --type "" and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>f;", "()<left>")                       --type () and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>f;;", "{}<left>")                      --type {} and place your cursor between it in insert mode
 vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')                        --paste clipboard
-vim.keymap.set({ "n", "ct", 'vitc')                        --change text between tags(html)
-vim.keymap.set({ "n", "vt", 'vit')                        --select text between tags(html)
+vim.keymap.set("i", "<C-v>", "<C-r>*")                              -- <C-r>* pastes from the clipboard in insert mode
+vim.keymap.set("n", "ct", 'vitc')                                   --change text between tags(html)
+vim.keymap.set("n", "vt", 'vit')                                    --select text between tags(html)
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
