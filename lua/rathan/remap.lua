@@ -46,11 +46,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "H", "^")                                       -- Move to the first non-blank character
 vim.keymap.set("n", "L", "g_")                                      -- Move to the last non-blank character
-vim.keymap.set("n", "vq", 'vi"')                                    -- Inside double quotes
-vim.keymap.set("n", "vQ", 'va"')                                    -- Around double quotes
 vim.keymap.set("n", "vp", "vi(")                                    -- Inside parentheses
 vim.keymap.set("n", "vP", "va(")                                    -- Around parentheses
-vim.keymap.set("n", "<leader>vp", "vip")                            -- Quickly select an entire paragraph
 vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
 vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
@@ -59,17 +56,28 @@ vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the s
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
-vim.keymap.set("i", "<leader>fj", "<")                              --type <> and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fjj", ">")                             --type <> and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fjk", "<><left>")                      --type <> and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fq", "''<left>")                       --type '' and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>fqq", '""<left>')                      --type "" and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>f;", "()<left>")                       --type () and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>f;;", "{}<left>")                      --type {} and place your cursor between it in insert mode
-vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')                        --paste clipboard
-vim.keymap.set("i", "<C-v>", "<C-r>*")                              -- <C-r>* pastes from the clipboard in insert mode
-vim.keymap.set("n", "ct", 'vitc')                                   --change text between tags(html)
-vim.keymap.set("n", "vt", 'vit')                                    --select text between tags(html)
+vim.keymap.set("i", "<leader>fj", "<")
+vim.keymap.set("i", "<leader>fjj", ">")
+vim.keymap.set("i", "<leader>df", "*")
+vim.keymap.set("i", "<leader>fjk", "<><left>") --type <> and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fq", "''<left>")  --type '' and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>fqq", '""<left>') --type "" and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>f;", "()<left>")  --type () and place your cursor between it in insert mode
+vim.keymap.set("i", "<leader>f;;", "{}<left>") --type {} and place your cursor between it in insert mode
+vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')   --paste clipboard
+vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboard in insert mode
+vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
+vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
+
+vim.keymap.set("n", "<leader>oo", function()
+	local line = vim.api.nvim_get_current_line()
+	local start_pos, end_pos = line:find(">%s*</")
+	if start_pos then
+		vim.fn.cursor(vim.fn.line("."), start_pos + 1)
+		vim.api.nvim_feedkeys("i", "n", false)
+	end
+end, { desc = "Jump between >< in tags" })
+
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })

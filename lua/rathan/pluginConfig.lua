@@ -167,6 +167,17 @@ vim.keymap.set("n", "<leader>e", function()
 	toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })
 
+--chafa nvim
+require("chafa").setup({
+	render = {
+		min_padding = 5,
+		show_label = true,
+	},
+	events = {
+		update_on_nvim_resize = true,
+	}
+})
+
 --UndoTree configuration
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
