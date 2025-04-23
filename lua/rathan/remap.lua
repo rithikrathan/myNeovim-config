@@ -59,6 +59,7 @@ vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the s
 vim.keymap.set("i", "<leader>fj", "<")
 vim.keymap.set("i", "<leader>fjj", ">")
 vim.keymap.set("i", "<leader>df", "*")
+vim.keymap.set("i", "<leader>id", "#")
 vim.keymap.set("i", "<leader>fjk", "<><left>") --type <> and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fq", "''<left>")  --type '' and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fqq", '""<left>') --type "" and place your cursor between it in insert mode
