@@ -79,7 +79,6 @@ vim.keymap.set("n", "<leader>oo", function()
 	end
 end, { desc = "Jump between >< in tags" })
 
-
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Split vertical windowx" })
