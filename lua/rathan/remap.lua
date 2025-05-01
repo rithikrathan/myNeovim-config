@@ -69,6 +69,7 @@ vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')   --paste clipboard
 vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboard in insert mode
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
+vim.keymap.set("i", "..", '-> ')               --select text between tags(html)
 
 vim.keymap.set("n", "<leader>oo", function()
 	local line = vim.api.nvim_get_current_line()
