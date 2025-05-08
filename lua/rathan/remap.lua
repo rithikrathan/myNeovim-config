@@ -9,7 +9,7 @@ vim.keymap.set("n", "<leader>gt", "<cmd>GitGutterLineHighlightsToggle | GitGutte
 vim.keymap.set("n", "<leader>1", vim.cmd.Mason)                                                               --open Mason window
 vim.keymap.set("n", "<leader>2", vim.cmd.Lazy)                                                                --open Lazy window
 vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
-vim.keymap.set("n", "<leader>t", "<cmd>sp | term<CR>")
+vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 vim.keymap.set("n", "<leader>``", ":tabnew ~/.config/nvim<CR>")
 
 -- testing new keymaps
@@ -69,7 +69,25 @@ vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')   --paste clipboard
 vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboard in insert mode
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
-vim.keymap.set("i", "..", '-> ')               --select text between tags(html)
+vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
+
+vim.keymap.set('n', '<leader>t', function()
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = math.floor(vim.o.columns * 0.8),
+    height = math.floor(vim.o.lines * 0.8),
+    row = math.floor(vim.o.lines * 0.1),
+    col = math.floor(vim.o.columns * 0.1),
+    style = 'minimal',
+    border = 'double',
+  })
+  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })  -- Set terminal background and foreground color
+  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
+  vim.fn.termopen(vim.o.shell, {cwd = vim.fn.getcwd()})
+  -- vim.fn.termopen(vim.o.shell, {cwd = vim.fn.expand('%:p:h')})
+  vim.cmd('startinsert')
+end, { desc = 'Floating terminal in file dir' })
 
 vim.keymap.set("n", "<leader>oo", function()
 	local line = vim.api.nvim_get_current_line()
