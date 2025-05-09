@@ -51,6 +51,7 @@ vim.keymap.set("n", "vP", "va(")                                    -- Around pa
 vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
 vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
+vim.keymap.set("n", "cpp", "ci{")                                    -- Inside parentheses
 vim.keymap.set("v", "<leader>dd", "y'>p")                           -- Duplicate visual selection
 vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the selected text around parentheses
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
@@ -70,29 +71,34 @@ vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboa
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
+vim.keymap.set("n", "]]]", function() 
+	-- print(vim.fn.getcwd()) 
+	print(vim.fn.expand('%:p:h')) 
+end )               --type -> cus who the fuck manually types those symbols
 
 
 -- Opening a floating terminal specific to the file's path
 vim.keymap.set('n', '<leader>t', function()
+  -- Get the current file's directory
+  local file_dir = vim.fn.expand('%:p:h')
+
   local buf = vim.api.nvim_create_buf(false, true)
   local win = vim.api.nvim_open_win(buf, true, {
-    relative = 'editor',
-    width = math.floor(vim.o.columns * 0.8),
-    height = math.floor(vim.o.lines * 0.8),
-    row = math.floor(vim.o.lines * 0.1),
-    col = math.floor(vim.o.columns * 0.1),
-    style = 'minimal',
-    -- border = 'double',
-    border = 'rounded',
+    relative = 'editor',                          -- Position relative to full editor
+    width = math.floor(vim.o.columns * 0.8),      -- 80% editor width
+    height = math.floor(vim.o.lines * 0.8),       -- 80% editor height
+    row = math.floor(vim.o.lines * 0.1),          -- Centered vertically
+    col = math.floor(vim.o.columns * 0.1),        -- Centered horizontally
+    style = 'minimal',                            -- No status line etc.
+    border = 'rounded',                           -- Rounded border
   })
-  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })  -- Set terminal background and foreground color
-  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
-  vim.fn.termopen(vim.o.shell, {cwd = vim.fn.getcwd()})
-  -- vim.fn.termopen(vim.o.shell, {cwd = vim.fn.expand('%:p:h')})
-  vim.cmd('startinsert')
-end, { desc = 'Floating terminal in file dir' })
--- end of script
 
+  vim.api.nvim_set_hl(0, 'Terminal', { fg = '#00ff00', bg = '#000000' })
+  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })
+  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
+  vim.fn.termopen(vim.o.shell, { cwd = file_dir })
+  vim.cmd('startinsert')
+end, { desc = 'Open terminal at the current file\'s directory' })
 
 vim.keymap.set("n", "<leader>oo", function()
 	local line = vim.api.nvim_get_current_line()

@@ -1,3 +1,4 @@
+
 --colorscheme configurations
 local colorScheme = require("darkvoid")
 colorScheme.setup({

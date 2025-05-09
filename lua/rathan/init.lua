@@ -38,7 +38,8 @@ if not vim.loop.fs_stat(pipepath) then
 	vim.fn.serverstart(pipepath)
 end
 --general vim configurations
-vim.g.netrw_keepdir = true
+
+vim.g.netrw_keepdir = true --if false update the currentworkingdirectory everytime you navigate the netrw
 vim.opt.expandtab = false
 vim.opt.signcolumn = "yes"
 vim.opt.relativenumber = true
@@ -74,3 +75,6 @@ vim.cmd([[
  highlight! FloatBorder guibg=NONE guifg=#888888
  highlight! NormalFloat guibg=NONE
  ]])
+
+
+--colors??
