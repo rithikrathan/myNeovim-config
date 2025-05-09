@@ -38,7 +38,7 @@ if not vim.loop.fs_stat(pipepath) then
 	vim.fn.serverstart(pipepath)
 end
 --general vim configurations
-vim.g.netrw_keepdir = 0
+vim.g.netrw_keepdir = true
 vim.opt.expandtab = false
 vim.opt.signcolumn = "yes"
 vim.opt.relativenumber = true

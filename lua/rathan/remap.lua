@@ -71,6 +71,8 @@ vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
 
+
+-- Opening a floating terminal specific to the file's path
 vim.keymap.set('n', '<leader>t', function()
   local buf = vim.api.nvim_create_buf(false, true)
   local win = vim.api.nvim_open_win(buf, true, {
@@ -80,7 +82,8 @@ vim.keymap.set('n', '<leader>t', function()
     row = math.floor(vim.o.lines * 0.1),
     col = math.floor(vim.o.columns * 0.1),
     style = 'minimal',
-    border = 'double',
+    -- border = 'double',
+    border = 'rounded',
   })
   vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })  -- Set terminal background and foreground color
   vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
@@ -88,6 +91,8 @@ vim.keymap.set('n', '<leader>t', function()
   -- vim.fn.termopen(vim.o.shell, {cwd = vim.fn.expand('%:p:h')})
   vim.cmd('startinsert')
 end, { desc = 'Floating terminal in file dir' })
+-- end of script
+
 
 vim.keymap.set("n", "<leader>oo", function()
 	local line = vim.api.nvim_get_current_line()
