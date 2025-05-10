@@ -12,17 +12,23 @@ vim.keymap.set("n", "<leader>m", vim.cmd.MinimapToggle)
 vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 vim.keymap.set("n", "<leader>``", ":tabnew ~/.config/nvim<CR>")
 
+--use this keybind to test some function
+vim.keymap.set("n", "]]]", function() 
+	-- print(vim.fn.getcwd()) 
+	print(vim.fn.expand('%:p:h')) 
+end )
 -- testing new keymaps
+
+
 
 --
 
---godlike keymaps
+--GODlike keymaps
+
+--create a new file without opening it in the editor 
 vim.keymap.set("n", "<leader>nf", function()
-	-- Get the current directory in netrw
 	local netrw_dir = vim.fn.expand("%:p:h")
-	-- Ask for the new file name
 	local filename = vim.fn.input("New file: ")
-	-- If the user entered a name, create the file in the netrw directory
 	if filename ~= "" then
 		local filepath = netrw_dir .. "/" .. filename
 		vim.fn.system("touch " .. vim.fn.shellescape(filepath))
@@ -31,6 +37,38 @@ vim.keymap.set("n", "<leader>nf", function()
 		print("Canceled file creation.")
 	end
 end, { desc = "Create file in current netrw directory" })
+
+-- Opening a floating terminal specific to the file's path
+vim.keymap.set('n', '<leader>t', function()
+  -- Get the current file's directory and tge rest are self explainatory
+  local file_dir = vim.fn.expand('%:p:h')
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',                          -- Position relative to full editor
+    width = math.floor(vim.o.columns * 0.85),      -- 80% editor width
+    height = math.floor(vim.o.lines * 0.85),       -- 80% editor height
+    row = math.floor(vim.o.lines * 0.1),          -- Centered vertically
+    col = math.floor(vim.o.columns * 0.1),        -- Centered horizontally
+    style = 'minimal',                            -- No status line etc.
+    border = 'double',
+})
+  vim.api.nvim_set_hl(0, 'Terminal', { fg = '#00ff00', bg = '#000000' })
+  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })
+  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
+  vim.fn.termopen(vim.o.shell, { cwd = file_dir })
+  vim.cmd('startinsert')
+end, { desc = 'Open terminal at the current file\'s directory' })
+
+vim.keymap.set("n", "<leader>oo", function()
+	local line = vim.api.nvim_get_current_line()
+	local start_pos, end_pos = line:find(">%s*</")
+	if start_pos then
+		vim.fn.cursor(vim.fn.line("."), start_pos + 1)
+		vim.api.nvim_feedkeys("i", "n", false)
+	end
+end, { desc = "Jump between >< in tags" })
+
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("i", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
@@ -71,43 +109,6 @@ vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboa
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
-vim.keymap.set("n", "]]]", function() 
-	-- print(vim.fn.getcwd()) 
-	print(vim.fn.expand('%:p:h')) 
-end )               --type -> cus who the fuck manually types those symbols
-
-
--- Opening a floating terminal specific to the file's path
-vim.keymap.set('n', '<leader>t', function()
-  -- Get the current file's directory
-  local file_dir = vim.fn.expand('%:p:h')
-
-  local buf = vim.api.nvim_create_buf(false, true)
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = 'editor',                          -- Position relative to full editor
-    width = math.floor(vim.o.columns * 0.8),      -- 80% editor width
-    height = math.floor(vim.o.lines * 0.8),       -- 80% editor height
-    row = math.floor(vim.o.lines * 0.1),          -- Centered vertically
-    col = math.floor(vim.o.columns * 0.1),        -- Centered horizontally
-    style = 'minimal',                            -- No status line etc.
-    border = 'rounded',                           -- Rounded border
-  })
-
-  vim.api.nvim_set_hl(0, 'Terminal', { fg = '#00ff00', bg = '#000000' })
-  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })
-  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
-  vim.fn.termopen(vim.o.shell, { cwd = file_dir })
-  vim.cmd('startinsert')
-end, { desc = 'Open terminal at the current file\'s directory' })
-
-vim.keymap.set("n", "<leader>oo", function()
-	local line = vim.api.nvim_get_current_line()
-	local start_pos, end_pos = line:find(">%s*</")
-	if start_pos then
-		vim.fn.cursor(vim.fn.line("."), start_pos + 1)
-		vim.api.nvim_feedkeys("i", "n", false)
-	end
-end, { desc = "Jump between >< in tags" })
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
