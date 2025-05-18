@@ -13,10 +13,10 @@ vim.keymap.set("n", "<leader>tt", "<cmd>sp | term<CR>")
 vim.keymap.set("n", "<leader>``", ":tabnew ~/.config/nvim<CR>")
 
 --use this keybind to test some function
-vim.keymap.set("n", "]]]", function() 
-	-- print(vim.fn.getcwd()) 
-	print(vim.fn.expand('%:p:h')) 
-end )
+vim.keymap.set("n", "]]]", function()
+    -- print(vim.fn.getcwd())
+    print(vim.fn.expand('%:p:h'))
+end)
 -- testing new keymaps
 
 
@@ -25,48 +25,48 @@ end )
 
 --GODlike keymaps
 
---create a new file without opening it in the editor 
+--create a new file without opening it in the editor
 vim.keymap.set("n", "<leader>nf", function()
-	local netrw_dir = vim.fn.expand("%:p:h")
-	local filename = vim.fn.input("New file: ")
-	if filename ~= "" then
-		local filepath = netrw_dir .. "/" .. filename
-		vim.fn.system("touch " .. vim.fn.shellescape(filepath))
-		print("Created: " .. filepath)
-	else
-		print("Canceled file creation.")
-	end
+    local netrw_dir = vim.fn.expand("%:p:h")
+    local filename = vim.fn.input("New file: ")
+    if filename ~= "" then
+        local filepath = netrw_dir .. "/" .. filename
+        vim.fn.system("touch " .. vim.fn.shellescape(filepath))
+        print("Created: " .. filepath)
+    else
+        print("Canceled file creation.")
+    end
 end, { desc = "Create file in current netrw directory" })
 
 -- Opening a floating terminal specific to the file's path
 vim.keymap.set('n', '<leader>t', function()
-  -- Get the current file's directory and tge rest are self explainatory
-  local file_dir = vim.fn.expand('%:p:h')
+    -- Get the current file's directory and tge rest are self explainatory
+    local file_dir = vim.fn.expand('%:p:h')
 
-  local buf = vim.api.nvim_create_buf(false, true)
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = 'editor',                          -- Position relative to full editor
-    width = math.floor(vim.o.columns * 0.85),      -- 80% editor width
-    height = math.floor(vim.o.lines * 0.85),       -- 80% editor height
-    row = math.floor(vim.o.lines * 0.1),          -- Centered vertically
-    col = math.floor(vim.o.columns * 0.1),        -- Centered horizontally
-    style = 'minimal',                            -- No status line etc.
-    border = 'double',
-})
-  vim.api.nvim_set_hl(0, 'Terminal', { fg = '#00ff00', bg = '#000000' })
-  vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })
-  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
-  vim.fn.termopen(vim.o.shell, { cwd = file_dir })
-  vim.cmd('startinsert')
+    local buf = vim.api.nvim_create_buf(false, true)
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',                      -- Position relative to full editor
+        width = math.floor(vim.o.columns * 0.80), -- 80% editor width
+        height = math.floor(vim.o.lines * 0.80),  -- 80% editor height
+        row = math.floor(vim.o.lines * 0.1),      -- Centered vertically
+        col = math.floor(vim.o.columns * 0.1),    -- Centered horizontally
+        style = 'minimal',                        -- No status line etc.
+        border = 'rounded',
+    })
+    vim.api.nvim_set_hl(0, 'Terminal', { fg = '#00ff00', bg = '#000000' })
+    vim.api.nvim_set_hl(0, 'Terminal', { bg = '#000000', fg = '#00ff00' })
+    vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#ff3322' })
+    vim.fn.termopen(vim.o.shell, { cwd = file_dir })
+    vim.cmd('startinsert')
 end, { desc = 'Open terminal at the current file\'s directory' })
 
 vim.keymap.set("n", "<leader>oo", function()
-	local line = vim.api.nvim_get_current_line()
-	local start_pos, end_pos = line:find(">%s*</")
-	if start_pos then
-		vim.fn.cursor(vim.fn.line("."), start_pos + 1)
-		vim.api.nvim_feedkeys("i", "n", false)
-	end
+    local line = vim.api.nvim_get_current_line()
+    local start_pos, end_pos = line:find(">%s*</")
+    if start_pos then
+        vim.fn.cursor(vim.fn.line("."), start_pos + 1)
+        vim.api.nvim_feedkeys("i", "n", false)
+    end
 end, { desc = "Jump between >< in tags" })
 
 
@@ -89,7 +89,7 @@ vim.keymap.set("n", "vP", "va(")                                    -- Around pa
 vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
 vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
-vim.keymap.set("n", "cpp", "ci{")                                    -- Inside parentheses
+vim.keymap.set("n", "cpp", "ci{")                                   -- Inside parentheses
 vim.keymap.set("v", "<leader>dd", "y'>p")                           -- Duplicate visual selection
 vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the selected text around parentheses
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
@@ -109,6 +109,7 @@ vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboa
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
+vim.keymap.set("i", ",,", '=> ')               --type => cus who the fuck manually types those symbols
 
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
@@ -132,53 +133,53 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live gr
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 vim.keymap.set("n", "<leader>fs", function()
-	builtin.grep_string({ search = vim.fn.input("Grep >") })
+    builtin.grep_string({ search = vim.fn.input("Grep >") })
 end, { desc = "Telescope grep" })
 
 --Harpoon with telescope setup and keymaps
 local harpoon = require("harpoon")
 
 vim.keymap.set("n", "<leader>a", function()
-	harpoon:list():add()
+    harpoon:list():add()
 end)
 vim.keymap.set("n", "<leader>s", function()
-	harpoon:list():remove()
+    harpoon:list():remove()
 end)
-vim.keymap.set("n", "33", function()
-	harpoon:list():select(1)
+vim.keymap.set("n", "<C-11>", function()
+    harpoon:list():select(1)
 end)
-vim.keymap.set("n", "44", function()
-	harpoon:list():select(2)
+vim.keymap.set("n", "<C-22>", function()
+    harpoon:list():select(2)
 end)
-vim.keymap.set("n", "55", function()
-	harpoon:list():select(3)
+vim.keymap.set("n", "<C-33>", function()
+    harpoon:list():select(3)
 end)
-vim.keymap.set("n", "66", function()
-	harpoon:list():select(4)
+vim.keymap.set("n", "<C-44>", function()
+    harpoon:list():select(4)
 end)
 --Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function()
-	harpoon:list():prev()
+    harpoon:list():prev()
 end)
 vim.keymap.set("n", "<C-S-N>", function()
-	harpoon:list():next()
+    harpoon:list():next()
 end)
 
 --LSP-zero keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-	desc = "LSP actions",
-	callback = function(event)
-		local opts = { buffer = event.buf }
-		-- > change these in the future
-		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-		vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-		vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-	end,
+    desc = "LSP actions",
+    callback = function(event)
+        local opts = { buffer = event.buf }
+        -- > change these in the future
+        vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+        vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+        vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+        vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+        vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+        vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+        vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+        vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+        vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
+        vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+    end,
 })
