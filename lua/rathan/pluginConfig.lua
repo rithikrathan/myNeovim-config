@@ -1,26 +1,27 @@
 --colorscheme configurations
 local colorScheme = require("darkvoid")
+local isTransparentandGlow = true
 colorScheme.setup({
-    transparent = true,
-    glow = true,
+    transparent = isTransparentandGlow,
+    glow = isTransparentandGlow,
     show_end_of_buffer = true,
     colors = {
-        fg = "#c0c0c0",
-        bg = "#050505",
-        cursor = "#ffffff",
-        line_nr = "#ff1e00",
+        fg = "#ffeeee",
+        bg = "#040409",
+        cursor = "#ffa0a0",
+        line_nr = "#ff1010",
         visual = "#690202",
-        comment = "#585858",
-        string = "#d4b2ab",
+        comment = "#808080",
+        string = "#e4b2ab",
         func = "#ff6347",
         kw = "#ff5555",
-        identifier = "#c7c7c7",
+        identifier = "#d2d2d2",
         type = "#a1a1a1",
         type_builtin = "#c5c5c5", -- current
         --type_builtin = "#8cf8f7", -- glowy blue old (was present by default before type_builtin was introduced added here for people who may like it)
         search_highlight = "#ffaa00",
         operator = "#d63e3e",
-        bracket = "#ffe6e6",
+        bracket = "#ffeeee",
         preprocessor = "#4b8902",
         bool = "#ffa07a",
         constant = "#f59064",
@@ -84,7 +85,7 @@ require("lualine").setup({
         ignore_focus = {},
         always_divide_middle = true,
         always_show_tabline = true,
-        globalstatus = false,
+        globalstatus = true,
         refresh = {
             statusline = 100,
             tabline = 100,
@@ -272,6 +273,7 @@ cmp.setup({
         { name = "path" },
         { name = "buffer" },
         { name = "luasnip" },
+        { name = "html-css" },
     },
 
     mapping = cmp.mapping.preset.insert({

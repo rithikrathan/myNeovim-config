@@ -1,5 +1,5 @@
 vim.opt.mouse = "a"
-vim.opt.timeoutlen = 200
+vim.opt.timeoutlen = 350
 
 --Plugin specific keymaps
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)                                                                --open a Git window
@@ -60,14 +60,14 @@ vim.keymap.set('n', '<leader>t', function()
     vim.cmd('startinsert')
 end, { desc = 'Open terminal at the current file\'s directory' })
 
-vim.keymap.set("n", "<leader>oo", function()
-    local line = vim.api.nvim_get_current_line()
-    local start_pos, end_pos = line:find(">%s*</")
-    if start_pos then
-        vim.fn.cursor(vim.fn.line("."), start_pos + 1)
-        vim.api.nvim_feedkeys("i", "n", false)
-    end
-end, { desc = "Jump between >< in tags" })
+-- vim.keymap.set("n", "<leader>oo", function()
+--     local line = vim.api.nvim_get_current_line()
+--     local start_pos, end_pos = line:find(">%s*</")
+--     if start_pos then
+--         vim.fn.cursor(vim.fn.line("."), start_pos + 1)
+--         vim.api.nvim_feedkeys("i", "n", false)
+--     end
+-- end, { desc = "Jump between >< in tags" })
 
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -108,6 +108,7 @@ vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')   --paste clipboard
 vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboard in insert mode
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
+vim.keymap.set("n", "pt", 'f>a')               --places cursor next to > and goes to insert mode
 vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
 vim.keymap.set("i", ",,", '=> ')               --type => cus who the fuck manually types those symbols
 
