@@ -69,7 +69,17 @@ end, { desc = 'Open terminal at the current file\'s directory' })
 --     end
 -- end, { desc = "Jump between >< in tags" })
 
+vim.keymap.set("n", "<leader>rw", function()
+    local word = vim.fn.expand("<cword>")
+    local replacement = vim.fn.input("Replace '" .. word .. "' with: ")
+    if replacement ~= "" then
+        vim.cmd("%s/\\<" .. word .. "\\>/" .. replacement .. "/gc")
+    end
+end, { desc = "Replace word under cursor with prompt" })
 
+
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("i", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
 vim.keymap.set("v", "<leader><Tab>", "<Esc>", { noremap = true, silent = true, desc = "Exit visual mode" })
@@ -95,6 +105,7 @@ vim.keymap.set("v", "<leader>wp", ":s/\\%V.*\\%V/(&)/ | nohl<CR>")  --wrap the s
 vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the selected text around curly braces
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
+vim.keymap.set("v", "<leader>wb", ":s/\\%V.*\\%V/`&`/ | nohl<CR>")  --wrap the selected test around back ticks
 vim.keymap.set("i", "<leader>fj", "<")
 vim.keymap.set("i", "<leader>fjj", ">")
 vim.keymap.set("i", "<leader>df", "*")
