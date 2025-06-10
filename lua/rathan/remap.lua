@@ -120,7 +120,7 @@ vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboa
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("n", "pt", 'f>a')               --places cursor next to > and goes to insert mode
-vim.keymap.set("i", "..", '-> ')               --type -> cus who the fuck manually types those symbols
+vim.keymap.set("i", ">>", '-> ')               --type -> cus who the fuck manually types those symbols
 vim.keymap.set("i", ",,", '=> ')               --type => cus who the fuck manually types those symbols
 
 --Split windows,navigation keymaps CTRL+<hjkl>
