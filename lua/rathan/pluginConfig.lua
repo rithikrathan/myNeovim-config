@@ -429,3 +429,51 @@ require("cmp").setup({
 })
 
 --Gp.nvim config if it crashes my computer idk how to recover
+local gp = require("gp")
+local proompt =  [[
+				You are my programming and concept assistant who helps me clear my doubts.
+
+				When asked about *concepts*, explain them clearly and completely using only your internal knowledge. No web links or external references.
+				When asked about *programming*, always:
+				- Give only the relevant code snippets
+				- Do NOT explain the code unless specifically asked
+				- Do NOT return full programs unless requested
+				- Focus strictly on the part related to the user’s doubt
+
+				Avoid wasting time:
+				- No greetings, intros, or conclusions
+				- Don’t suggest best practices or alternatives unless asked
+				- Don’t explain obvious things
+				- Do not assume the user needs help understanding the basics
+
+				You are here as a tool for fast reference and deep concept clarity, not full tutorials.
+				]]
+gp.setup({
+		providers =  {
+			openai = {disable = true},
+			openrouter = {
+				endpoint = "https://openrouter.ai/api/v1/chat/completions",
+				secret = os.getenv('OPENROUTER_API_KEY'),
+			},
+		},
+		agents = {
+			{
+				provider = "openrouter",
+				chat = true,
+				command = true,
+				name = "deepseekR1",
+				model = "deepseek/deepseek-r1-0528-qwen3-8b:free",	
+				system_prompt = proompt
+			},
+			{
+				provider = "openrouter",
+				chat = true,
+				command = true,
+				name = "gemini",
+				model = "google/gemini-2.0-flash-exp:free",	
+				system_prompt = proompt
+			},
+		},
+		chat_agent = "gemini",
+		})
+--gp._state.chat_agent = "deepseekR1"

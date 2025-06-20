@@ -207,3 +207,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
     end,
 })
+
+
+-- Gp.nvim keymaps(not working need to fix in the future)
+
+vim.keymap.set("v", "<A-?>", function()
+    vim.ui.input({ prompt = "prompt: " }, function(instruction)
+        if instruction then
+            vim.cmd("'<,'>GpRewrite" .. instruction)
+        end
+    end)
+end, { desc = "Rewrite the selected text based on the given prompt" })
