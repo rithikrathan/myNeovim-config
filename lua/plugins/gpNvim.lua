@@ -1,0 +1,5 @@
+return{
+    {
+        "Robitx/gp.nvim"
+    }
+}

@@ -69,6 +69,19 @@ end, { desc = 'Open terminal at the current file\'s directory' })
 --     end
 -- end, { desc = "Jump between >< in tags" })
 
+-- move the cursor to the end of a closer
+vim.keymap.set('i', '<A-l>', function()
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local next_char = line:sub(col + 1, col + 1)
+    -- Define closing chars you want to jump past
+    local closers = { [")"] = true, ["]"] = true, ["}"] = true, [">"] = true, ['"'] = true, ["'"] = true }
+    if closers[next_char] then
+        vim.api.nvim_win_set_cursor(0, { vim.fn.line("."), col + 1 })
+    end
+end, { noremap = true, silent = true })
+
+-- Replace the word under the cursor
 vim.keymap.set("n", "<leader>rw", function()
     local word = vim.fn.expand("<cword>")
     local replacement = vim.fn.input("Replace '" .. word .. "' with: ")
@@ -77,7 +90,7 @@ vim.keymap.set("n", "<leader>rw", function()
     end
 end, { desc = "Replace word under cursor with prompt" })
 
-
+vim.keymap.set({ "n", "v", "t", "i" }, "<A-n>", '<CR>', { remap = true }) --map enter to alt-n
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -120,9 +133,8 @@ vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboa
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("n", "pt", 'f>a')               --places cursor next to > and goes to insert mode
-vim.keymap.set("i", ">>", '-> ')               --type -> cus who the fuck manually types those symbols
-vim.keymap.set("i", ",,", '=> ')               --type => cus who the fuck manually types those symbols
-
+vim.keymap.set("i", "<A-.>", ' -> ')           --type -> cus who the fuck manually types those symbols
+vim.keymap.set("i", "<A-,>", ' => ')           --type => cus who the fuck manually types those symbols
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Split vertical windowx" })

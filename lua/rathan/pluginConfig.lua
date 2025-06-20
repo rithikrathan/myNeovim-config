@@ -427,3 +427,5 @@ require("cmp").setup({
         end
     }
 })
+
+--Gp.nvim config if it crashes my computer idk how to recover
