@@ -119,16 +119,9 @@ vim.keymap.set("v", "<leader>wpp", ":s/\\%V.*\\%V/{&}/ | nohl<CR>") --wrap the s
 vim.keymap.set("v", "<leader>wqq", ':s/\\%V.*\\%V/"&"/ | nohl<CR>') --wrap the selected text around double quotes
 vim.keymap.set("v", "<leader>wq", ":s/\\%V.*\\%V/'&'/ | nohl<CR>")  --wrap the selected test around single quotes
 vim.keymap.set("v", "<leader>wb", ":s/\\%V.*\\%V/`&`/ | nohl<CR>")  --wrap the selected test around back ticks
-vim.keymap.set("i", "<leader>fj", "<")
-vim.keymap.set("i", "<leader>fjj", ">")
-vim.keymap.set("i", "<leader>df", "*")
-vim.keymap.set("i", "<leader>id", "#")
 vim.keymap.set("i", "<leader>fjk", "<><left>") --type <> and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fq", "''<left>")  --type '' and place your cursor between it in insert mode
 vim.keymap.set("i", "<leader>fqq", '""<left>') --type "" and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>f;", "()<left>")  --type () and place your cursor between it in insert mode
-vim.keymap.set("i", "<leader>f;;", "{}<left>") --type {} and place your cursor between it in insert mode
-vim.keymap.set({ "n", "v" }, "<C-v>", '"*p')   --paste clipboard
 vim.keymap.set("i", "<C-v>", "<C-r>*")         -- <C-r>* pastes from the clipboard in insert mode
 vim.keymap.set("n", "ct", 'vitc')              --change text between tags(html)
 vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)

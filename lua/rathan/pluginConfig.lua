@@ -281,7 +281,7 @@ cmp.setup({
         ["<A-k>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
         ["<A-j>"] = cmp.mapping.select_next_item({ behavior = "select" }),
         -- `Enter` key to confirm completion
-        ["<A-i>"] = cmp.mapping.confirm({ select = false }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
         -- Ctrl+Space to trigger completion menu
         ["<C-Space>"] = cmp.mapping.complete(),
         -- Scroll up and down in the completion documentation
