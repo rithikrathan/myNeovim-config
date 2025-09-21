@@ -69,18 +69,6 @@ end, { desc = 'Open terminal at the current file\'s directory' })
 --     end
 -- end, { desc = "Jump between >< in tags" })
 
--- move the cursor to the end of a closer
-vim.keymap.set('i', '<A-l>', function()
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-    local next_char = line:sub(col + 1, col + 1)
-    -- Define closing chars you want to jump past
-    local closers = { [")"] = true, ["]"] = true, ["}"] = true, [">"] = true, ['"'] = true, ["'"] = true }
-    if closers[next_char] then
-        vim.api.nvim_win_set_cursor(0, { vim.fn.line("."), col + 1 })
-    end
-end, { noremap = true, silent = true })
-
 -- Replace the word under the cursor
 vim.keymap.set("n", "<leader>rw", function()
     local word = vim.fn.expand("<cword>")
@@ -109,8 +97,8 @@ vim.keymap.set("n", "H", "^")                                       -- Move to t
 vim.keymap.set("n", "L", "g_")                                      -- Move to the last non-blank character
 vim.keymap.set("n", "vp", "vi(")                                    -- Inside parentheses
 vim.keymap.set("n", "vP", "va(")                                    -- Around parentheses
-vim.keymap.set("n", "ci", "ci'")                                    -- Inside double quotes
-vim.keymap.set("n", "cii", 'ci"')                                   -- Inside double quotes
+vim.keymap.set("n", "cj", "ci'")                                    -- Inside double quotes
+vim.keymap.set("n", "cjj", 'ci"')                                   -- Inside double quotes
 vim.keymap.set("n", "cp", "ci(")                                    -- Inside parentheses
 vim.keymap.set("n", "cpp", "ci{")                                   -- Inside parentheses
 vim.keymap.set("v", "<leader>dd", "y'>p")                           -- Duplicate visual selection
@@ -135,6 +123,16 @@ vim.keymap.set("n", "vt", 'vit')               --select text between tags(html)
 vim.keymap.set("n", "pt", 'f>a')               --places cursor next to > and goes to insert mode
 vim.keymap.set("i", "<A-.>", ' -> ')           --type -> cus who the fuck manually types those symbols
 vim.keymap.set("i", "<A-,>", ' => ')           --type => cus who the fuck manually types those symbols
+vim.keymap.set("i", "<A-/>", ' <= ')           --type <= cus who the fuck manually types those symbols
+vim.keymap.set("i", "<A-;>", ' := ')           --type := cus who the fuck manually types those symbols
+vim.keymap.set("i", "<A-m>", ' <- ')           --type <- cus who the fuck manually types those symbols
+vim.keymap.set("i", "<A-o>", '<Esc>o')         --write a new line
+vim.keymap.set("i", "<A-l>", "<right>")
+vim.keymap.set("i", "<A-h>", "<left>")
+vim.keymap.set("i", "<A-k>", "<C-right>")
+vim.keymap.set("i", "<A-j>", "<C-left>")
+
+
 --Split windows,navigation keymaps CTRL+<hjkl>
 vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Split horizontal windowx" })
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Split vertical windowx" })
@@ -169,16 +167,16 @@ end)
 vim.keymap.set("n", "<leader>s", function()
     harpoon:list():remove()
 end)
-vim.keymap.set("n", "<C-11>", function()
+vim.keymap.set("n", "<A-=>", function()
     harpoon:list():select(1)
 end)
-vim.keymap.set("n", "<C-22>", function()
+vim.keymap.set("n", "<A-->", function()
     harpoon:list():select(2)
 end)
-vim.keymap.set("n", "<C-33>", function()
+vim.keymap.set("n", "<A-0>", function()
     harpoon:list():select(3)
 end)
-vim.keymap.set("n", "<C-44>", function()
+vim.keymap.set("n", "<A-9>", function()
     harpoon:list():select(4)
 end)
 --Toggle previous & next buffers stored within Harpoon list
@@ -218,3 +216,7 @@ vim.keymap.set("v", "<A-?>", function()
         end
     end)
 end, { desc = "Rewrite the selected text based on the given prompt" })
+
+
+--nvim-toggle keymap
+vim.keymap.set({ 'n', 'v' }, '<leader>i', require("nvim-toggler").toggle)

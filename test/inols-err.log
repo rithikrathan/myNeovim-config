@@ -1,0 +1,28 @@
+
+
+
+
+
+
+
+Started logging.
+18:08:38.736657 Language server launched with arguments:
+18:08:38.736693   arg[0] = /home/godz/.local/share/nvim/mason/bin/arduino-language-server
+18:08:38.736716   arg[1] = -cli
+18:08:38.736733   arg[2] = /home/godz/.local/bin/arduino-cli
+18:08:38.736749   arg[3] = -cli-config
+18:08:38.736764   arg[4] = /home/godz/.arduino15/arduino-cli.yaml
+18:08:38.736781   arg[5] = -fqbn
+18:08:38.736809   arg[6] = arduino:avr:uno
+18:08:38.736831   arg[7] = -clangd
+18:08:38.736857   arg[8] = /home/godz/.local/share/nvim/mason/bin/clangd
+18:08:38.736880   arg[9] = -log
+18:08:38.736922   arg[10] = debug
+18:08:38.737098 logging to /home/godz/.config/nvim/test/inols.log
+18:08:38.737735 [97mLS: : Initial board configuration: arduino:avr:uno[0m
+18:08:38.737781 [97mLS: : arduino-language-server Version: 0.7.7 Commit: 9945da3 Date: 2025-03-19T10:22:39Z[0m
+18:08:38.737819 [97mLS: : Language server temp directory: /tmp/arduino-language-server3812227781[0m
+18:08:38.737850 [97mLS: : Language server build path: /tmp/arduino-language-server3812227781/build[0m
+18:08:38.737880 [97mLS: : Language server build sketch root: /tmp/arduino-language-server3812227781/build/sketch[0m
+18:08:38.737976 [97mLS: : Language server FULL build path: /tmp/arduino-language-server3812227781/fullbuild[0m
+18:08:55.235767 INTERRUPTED
